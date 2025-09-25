@@ -1,149 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teams Productivity Intelligence Suite</title>
-  <link rel="stylesheet" href="CSS/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams Productivity Intelligence Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f3f2f1;
+            color: #323130;
+        }
+        
+        .teams-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .teams-header {
+            background: #464775;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .teams-logo {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #464775;
+            font-size: 14px;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, #6264A7 0%, #464775 100%);
+            padding: 20px;
+            color: white;
+        }
+        
+        .app-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .app-subtitle {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .main-content {
+            display: flex;
+            height: calc(100vh - 120px);
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #f8f8f8;
+            border-right: 1px solid #edebe9;
+            padding: 20px;
+        }
+        
+        .nav-item {
+            padding: 12px 16px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-item:hover {
+            background: #e1dfdd;
+        }
+        
+        .nav-item.active {
+            background: #6264A7;
+            color: white;
+        }
+        
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid #6264A7;
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #6264A7;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: #605e5c;
+            margin-bottom: 4px;
+        }
+        
+        .metric-change {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        
+        .metric-change.positive {
+            background: #dff6dd;
+            color: #107c10;
+        }
+        
+        .metric-change.negative {
+            background: #fde7e9;
+            color: #d13438;
+        }
+        
+        .calendar-view {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .time-slot {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f2f1;
+        }
+        
+        .time-label {
+            width: 80px;
+            font-size: 12px;
+            color: #605e5c;
+        }
+        
+        .meeting-block {
+            flex: 1;
+            margin-left: 12px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .meeting-block:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .meeting-regular {
+            background: #e1f5fe;
+            border-left: 4px solid #2196f3;
+            color: #1565c0;
+        }
+        
+        .meeting-focus {
+            background: #e8f5e8;
+            border-left: 4px solid #4caf50;
+            color: #2e7d32;
+        }
+        
+        .meeting-optional {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            color: #e65100;
+        }
+        
+        .meeting-high-priority {
+            background: #fce4ec;
+            border-left: 4px solid #e91e63;
+            color: #ad1457;
+        }
+        
+        .ai-suggestion {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: #6264A7;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 8px;
+        }
+        
+        .suggestions-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #edebe9;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .suggestion-item:hover {
+            border-color: #6264A7;
+            background: #f8f7ff;
+        }
+        
+        .suggestion-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            background: #6264A7;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 14px;
+        }
+        
+        .suggestion-content {
+            flex: 1;
+        }
+        
+        .suggestion-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .suggestion-desc {
+            font-size: 12px;
+            color: #605e5c;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #6264A7;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #464775;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #6264A7;
+            border: 1px solid #6264A7;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #6264A7;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+    </style>
 </head>
 <body>
-  <div class="teams-container">
-    <div class="teams-header">
-      <div class="teams-logo">T</div>
-      <span>Microsoft Teams</span>
-      <span class="user-name">Sarah Chen • Product Manager</span>
+    <div class="teams-container">
+        <div class="teams-header">
+            <div class="teams-logo">T</div>
+            <span>Microsoft Teams</span>
+            <span style="margin-left: auto; font-size: 12px;">Aniket Anand • Product Manager</span>
+        </div>
+        
+        <div class="app-header">
+            <div class="app-title">Productivity Intelligence Suite</div>
+            <div class="app-subtitle">AI-powered meeting optimization and focus time protection</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="nav-item active" onclick="showSection('dashboard')">
+                    <div class="nav-icon">📊</div>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" onclick="showSection('calendar')">
+                    <div class="nav-icon">📅</div>
+                    <span>Smart Calendar</span>
+                </div>
+                <div class="nav-item" onclick="showSection('insights')">
+                    <div class="nav-icon">🔍</div>
+                    <span>Meeting Insights</span>
+                </div>
+                <div class="nav-item" onclick="showSection('suggestions')">
+                    <div class="nav-icon">💡</div>
+                    <span>AI Suggestions</span>
+                </div>
+            </div>
+            
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <div id="dashboard-section">
+                    <div class="dashboard-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">2.4hrs</div>
+                            <div class="metric-label">Focus Time Today</div>
+                            <div class="metric-change positive">+40% vs last week</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">6</div>
+                            <div class="metric-label">Meetings Today</div>
+                            <div class="metric-change negative">-2 vs yesterday</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">85%</div>
+                            <div class="metric-label">Meeting Efficiency Score</div>
+                            <div class="metric-change positive">+15% this month</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">12</div>
+                            <div class="metric-label">Context Switches</div>
+                            <div class="metric-change positive">-8 vs avg</div>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-view">
+                        <div class="calendar-header">
+                            <div class="calendar-title">Today's Optimized Schedule</div>
+                            <button class="btn btn-primary" onclick="showNotification('Schedule optimized! 45 minutes of focus time protected.')">Optimize Day</button>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time-label">9:00 AM</div>
+                            <div class="meeting-block meeting-focus">
+                                🎯 Protected Focus Time - Product Strategy Review
+                                <div class="ai-suggestion">AI</div>
+                            </div>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time-label">10:30 AM</div>
+                            <div class="meeting-block meeting-regular" onclick="showMeetingDetails('standup')">
+                                👥 Daily Standup (15 min) - Team Alpha
+                            </div>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time-label">11:00 AM</div>
+                            <div class="meeting-block meeting-optional">
+                                📋 Product Review Meeting - Optional Attendance
+                                <div class="ai-suggestion">AI</div>
+                            </div>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time-label">12:00 PM</div>
+                            <div class="meeting-block meeting-focus">
+                                🍽️ Lunch Break + Focus Time
+                            </div>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time-label">1:30 PM</div>
+                            <div class="meeting-block meeting-high-priority" onclick="showMeetingDetails('exec')">
+                                ⭐ Executive Briefing (30 min) - Q4 Planning
+                                <div class="ai-suggestion">PREP</div>
+                            </div>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time-label">2:30 PM</div>
+                            <div class="meeting-block meeting-focus">
+                                🎯 Protected Focus Time - Feature Design
+                            </div>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time-label">4:00 PM</div>
+                            <div class="meeting-block meeting-regular">
+                                🔄 Sprint Retrospective (45 min) - Dev Team
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Suggestions Section -->
+                <div id="suggestions-section" class="hidden">
+                    <div class="suggestions-panel">
+                        <h2 style="margin-bottom: 20px;">AI-Powered Suggestions</h2>
+                        
+                        <div class="suggestion-item" onclick="applySuggestion(this, 'Meeting shortened from 60 to 30 minutes')">
+                            <div class="suggestion-icon">⏰</div>
+                            <div class="suggestion-content">
+                                <div class="suggestion-title">Shorten "Product Review" meeting</div>
+                                <div class="suggestion-desc">AI detected agenda can be covered in 30 minutes vs scheduled 60 minutes</div>
+                            </div>
+                            <button class="btn btn-secondary">Apply</button>
+                        </div>
+                        
+                        <div class="suggestion-item" onclick="applySuggestion(this, 'You have been removed from this meeting. Summary will be sent.')">
+                            <div class="suggestion-icon">👋</div>
+                            <div class="suggestion-content">
+                                <div class="suggestion-title">Skip "Marketing Sync"</div>
+                                <div class="suggestion-desc">Your input not critical based on agenda. Receive summary instead.</div>
+                            </div>
+                            <button class="btn btn-secondary">Apply</button>
+                        </div>
+                        
+                        <div class="suggestion-item" onclick="applySuggestion(this, 'Focus time block added to your calendar')">
+                            <div class="suggestion-icon">🎯</div>
+                            <div class="suggestion-content">
+                                <div class="suggestion-title">Add 90-minute focus block</div>
+                                <div class="suggestion-desc">Optimal time detected at 2:30 PM based on your energy patterns</div>
+                            </div>
+                            <button class="btn btn-secondary">Apply</button>
+                        </div>
+                        
+                        <div class="suggestion-item" onclick="applySuggestion(this, 'Meeting moved to Tuesday 10 AM for better attendance')">
+                            <div class="suggestion-icon">📅</div>
+                            <div class="suggestion-content">
+                                <div class="suggestion-title">Reschedule team meeting</div>
+                                <div class="suggestion-desc">3 key participants have conflicts. Tuesday 10 AM works for everyone.</div>
+                            </div>
+                            <button class="btn btn-secondary">Apply</button>
+                        </div>
+                        
+                        <div class="suggestion-item" onclick="applySuggestion(this, 'Pre-meeting brief prepared with key context and decisions needed')">
+                            <div class="suggestion-icon">📋</div>
+                            <div class="suggestion-content">
+                                <div class="suggestion-title">Prepare executive briefing</div>
+                                <div class="suggestion-desc">AI has compiled relevant context, metrics, and decision points needed</div>
+                            </div>
+                            <button class="btn btn-secondary">View Brief</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Meeting Insights Section -->
+                <div id="insights-section" class="hidden">
+                    <div class="suggestions-panel">
+                        <h2 style="margin-bottom: 20px;">Meeting Insights & Analytics</h2>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <div class="metric-card">
+                                <div class="metric-value">73%</div>
+                                <div class="metric-label">Avg Meeting Attendance Rate</div>
+                                <div class="metric-change positive">+8% this month</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">24min</div>
+                                <div class="metric-label">Avg Meeting Duration</div>
+                                <div class="metric-change positive">-12min vs target</div>
+                            </div>
+                        </div>
+                        
+                        <div class="suggestion-item">
+                            <div class="suggestion-icon">📈</div>
+                            <div class="suggestion-content">
+                                <div class="suggestion-title">Most Productive Meeting Times</div>
+                                <div class="suggestion-desc">Your meetings at 10:00 AM have 92% satisfaction rate vs 67% at 4:00 PM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="suggestion-item">
+                            <div class="suggestion-icon">🎯</div>
+                            <div class="suggestion-content">
+                                <div class="suggestion-title">Focus Time Patterns</div>
+                                <div class="suggestion-desc">You're most productive during 2-4 PM. Protect this time for deep work.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="suggestion-item">
+                            <div class="suggestion-icon">⚡</div>
+                            <div class="suggestion-content">
+                                <div class="suggestion-title">Meeting Effectiveness Score</div>
+                                <div class="suggestion-desc">Meetings with agendas are 3.2x more likely to end on time and achieve outcomes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="app-header">
-      <div class="app-title">Productivity Intelligence Suite</div>
-      <div class="app-subtitle">AI-powered meeting optimization and focus time protection</div>
-    </div>
-
-    <div class="main-content">
-      <div class="sidebar">
-        <div class="nav-item active" onclick="showSection('dashboard')">
-          <div class="nav-icon">📊</div>
-          <span>Dashboard</span>
-        </div>
-        <div class="nav-item" onclick="showSection('calendar')">
-          <div class="nav-icon">📅</div>
-          <span>Smart Calendar</span>
-        </div>
-        <div class="nav-item" onclick="showSection('insights')">
-          <div class="nav-icon">🔍</div>
-          <span>Meeting Insights</span>
-        </div>
-        <div class="nav-item" onclick="showSection('suggestions')">
-          <div class="nav-icon">💡</div>
-          <span>AI Suggestions</span>
-        </div>
-      </div>
-
-      <div class="content-area">
-        <!-- Dashboard Section -->
-        <div id="dashboard-section">
-          <div class="dashboard-grid">
-            <div class="metric-card">
-              <div class="metric-value">2.4hrs</div>
-              <div class="metric-label">Focus Time Today</div>
-              <div class="metric-change positive">+40% vs last week</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">6</div>
-              <div class="metric-label">Meetings Today</div>
-              <div class="metric-change negative">-2 vs yesterday</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">85%</div>
-              <div class="metric-label">Meeting Efficiency Score</div>
-              <div class="metric-change positive">+15% this month</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">12</div>
-              <div class="metric-label">Context Switches</div>
-              <div class="metric-change positive">-8 vs avg</div>
-            </div>
-          </div>
-
-          <div class="calendar-view">
-            <div class="calendar-header">
-              <div class="calendar-title">Today's Optimized Schedule</div>
-              <button class="btn-primary" onclick="showNotification('Schedule optimized! 45 minutes of focus time protected.')">Optimize Day</button>
-            </div>
-
-            <div class="time-slot">
-              <div class="time-label">9:00 AM</div>
-              <div class="meeting-block meeting-focus">
-                🎯 Protected Focus Time - Product Strategy Review
-                <div class="ai-suggestion">AI</div>
-              </div>
-            </div>
-
-            <div class="time-slot">
-              <div class="time-label">10:30 AM</div>
-              <div class="meeting-block meeting-regular" onclick="showMeetingDetails('standup')">
-                👥 Daily Standup (15 min) - Team Alpha
-              </div>
-            </div>
-
-            <div class="time-slot">
-              <div class="time-label">11:00 AM</div>
-              <div class="meeting-block meeting-optional">
-                📋 Product Review Meeting - Optional Attendance
-                <div class="ai-suggestion">AI</div>
-              </div>
-            </div>
-
-            <div class="time-slot">
-              <div class="time-label">12:00 PM</div>
-              <div class="meeting-block meeting-focus">
-                🍽️ Lunch Break + Focus Time
-              </div>
-            </div>
-
-            <div class="time-slot">
-              <div class="time-label">1:30 PM</div>
-              <div class="meeting-block meeting-high-priority" onclick="showMeetingDetails('exec')">
-                ⭐ Executive Briefing (30 min) - Q4 Planning
-                <div class="ai-suggestion">PREP</div>
-              </div>
-            </div>
-
-            <div class="time-slot">
-              <div class="time-label">2:30 PM</div>
-              <div class="meeting-block meeting-focus">
-                🎯 Protected Focus Time - Feature Design
-              </div>
-            </div>
-
-            <div class="time-slot">
-              <div class="time-label">4:00 PM</div>
-              <div class="meeting-block meeting-regular">
-                🔄 Sprint Retrospective (45 min) - Dev Team
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Suggestions Section -->
-        <div id="suggestions-section" class="hidden">
-          <div class="suggestions-panel">
-            <h2>AI-Powered Suggestions</h2>
-          </div>
-        </div>
-
-        <!-- Meeting Insights Section -->
-        <div id="insights-section" class="hidden">
-          <div class="suggestions-panel">
-            <h2>Meeting Insights & Analytics</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="notification" id="notification"></div>
-
-  <script src="JS/script.js"></script>
+    
+    <div class="notification" id="notification"></div>
+    
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            document.getElementById('dashboard-section').classList.add('hidden');
+            document.getElementById('suggestions-section').classList.add('hidden');
+            document.getElementById('insights-section').classList.add('hidden');
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+        }
+        
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        function applySuggestion(element, message) {
+            element.style.opacity = '0.5';
+            element.style.pointerEvents = 'none';
+            
+            const button = element.querySelector('.btn');
+            button.textContent = 'Applied ✓';
+            button.style.background = '#107c10';
+            
+            showNotification(message);
+        }
+        
+        function showMeetingDetails(meetingType) {
+            const details = {
+                'standup': 'Daily Standup Meeting\n\n🤖 AI Preparation:\n• Team completed 8/10 sprint items\n• 2 blockers identified yesterday\n• Aniket\'s input needed on API design\n\n⏱️ Estimated duration: 15 minutes\n👥 Essential attendees: You, John, Maria',
+                'exec': 'Executive Briefing - Q4 Planning\n\n🤖 AI Brief:\n• Revenue target: $2.3M (on track)\n• 3 key decisions needed today\n• Competitor analysis attached\n• Budget approval required for Team expansion\n\n⏱️ Estimated duration: 30 minutes\n📋 Pre-read materials ready'
+            };
+            
+            alert(details[meetingType] || 'Meeting details loading...');
+        }
+        
+        // Simulate real-time updates
+        setInterval(() => {
+            // Update focus time randomly
+            const focusTimeEl = document.querySelector('.metric-value');
+            if (focusTimeEl && Math.random() > 0.95) {
+                const currentTime = parseFloat(focusTimeEl.textContent);
+                const newTime = (currentTime + 0.1).toFixed(1);
+                focusTimeEl.textContent = newTime + 'hrs';
+                focusTimeEl.classList.add('pulse');
+                setTimeout(() => focusTimeEl.classList.remove('pulse'), 500);
+            }
+        }, 2000);
+        
+        // Show welcome notification
+        setTimeout(() => {
+            showNotification('Good morning, Aniket! Your day is optimized with 2.4 hours of protected focus time.');
+        }, 1000);
+    </script>
 </body>
 </html>
+
+
