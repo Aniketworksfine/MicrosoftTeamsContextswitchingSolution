@@ -1,0 +1,286 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f3f2f1;
+  color: #323130;
+}
+
+/* Container */
+.teams-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Teams header bar */
+.teams-header {
+  display: flex;
+  align-items: center;
+  background: #6264A7;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.teams-logo {
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  color: #6264A7;
+  border-radius: 4px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+/* App header */
+.app-header {
+  background: #fff;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.app-subtitle {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Main layout */
+.main-content {
+  flex: 1;
+  display: flex;
+}
+
+/* Sidebar navigation */
+.sidebar {
+  width: 200px;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.nav-item:hover {
+  background: #f3f2f1;
+}
+
+.nav-item.active {
+  background: #E1DFDD;
+  font-weight: 600;
+}
+
+.nav-icon {
+  margin-right: 10px;
+}
+
+/* Content area */
+.content-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Dashboard metrics */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.metric-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.metric-value {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.metric-change {
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.metric-change.positive {
+  color: #107C10;
+}
+
+.metric-change.negative {
+  color: #A80000;
+}
+
+/* Calendar view */
+.calendar-view {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.calendar-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.time-slot {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.time-label {
+  width: 80px;
+  font-size: 12px;
+  color: #666;
+  padding-top: 5px;
+}
+
+.meeting-block {
+  flex: 1;
+  background: #f3f2f1;
+  padding: 8px 12px;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+.meeting-block:hover {
+  background: #E1DFDD;
+}
+
+.meeting-focus {
+  border-left: 4px solid #107C10;
+}
+
+.meeting-regular {
+  border-left: 4px solid #6264A7;
+}
+
+.meeting-optional {
+  border-left: 4px solid #8A8886;
+}
+
+.meeting-high-priority {
+  border-left: 4px solid #D83B01;
+}
+
+.ai-suggestion {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 10px;
+  background: #6264A7;
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* Buttons */
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-primary {
+  background: #6264A7;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #464775;
+}
+
+/* Suggestions & Insights */
+.suggestions-panel {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.suggestion-item,
+.insight-card {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:last-child,
+.insight-card:last-child {
+  border-bottom: none;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Notification popup */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #6264A7;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pulse animation for metric changes */
+.pulse {
+  animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

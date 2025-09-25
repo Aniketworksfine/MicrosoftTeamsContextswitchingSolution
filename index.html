@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teams Productivity Intelligence Suite</title>
+  <!-- Link your external stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <div class="teams-container">
+    <div class="teams-header">
+      <div class="teams-logo">T</div>
+      <span>Microsoft Teams</span>
+      <span style="margin-left: auto; font-size: 12px;">Sarah Chen • Product Manager</span>
+    </div>
+
+    <div class="app-header">
+      <div class="app-title">Productivity Intelligence Suite</div>
+      <div class="app-subtitle">AI-powered meeting optimization and focus time protection</div>
+    </div>
+
+    <div class="main-content">
+      <div class="sidebar">
+        <div class="nav-item active" onclick="showSection('dashboard')">
+          <div class="nav-icon">📊</div>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" onclick="showSection('calendar')">
+          <div class="nav-icon">📅</div>
+          <span>Smart Calendar</span>
+        </div>
+        <div class="nav-item" onclick="showSection('insights')">
+          <div class="nav-icon">🔍</div>
+          <span>Meeting Insights</span>
+        </div>
+        <div class="nav-item" onclick="showSection('suggestions')">
+          <div class="nav-icon">💡</div>
+          <span>AI Suggestions</span>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <!-- Dashboard Section -->
+        <div id="dashboard-section">
+          <div class="dashboard-grid">
+            <div class="metric-card">
+              <div class="metric-value">2.4hrs</div>
+              <div class="metric-label">Focus Time Today</div>
+              <div class="metric-change positive">+40% vs last week</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">6</div>
+              <div class="metric-label">Meetings Today</div>
+              <div class="metric-change negative">-2 vs yesterday</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">85%</div>
+              <div class="metric-label">Meeting Efficiency Score</div>
+              <div class="metric-change positive">+15% this month</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">12</div>
+              <div class="metric-label">Context Switches</div>
+              <div class="metric-change positive">-8 vs avg</div>
+            </div>
+          </div>
+
+          <div class="calendar-view">
+            <div class="calendar-header">
+              <div class="calendar-title">Today's Optimized Schedule</div>
+              <button class="btn btn-primary" onclick="showNotification('Schedule optimized! 45 minutes of focus time protected.')">Optimize Day</button>
+            </div>
+
+            <div class="time-slot">
+              <div class="time-label">9:00 AM</div>
+              <div class="meeting-block meeting-focus">
+                🎯 Protected Focus Time - Product Strategy Review
+                <div class="ai-suggestion">AI</div>
+              </div>
+            </div>
+
+            <div class="time-slot">
+              <div class="time-label">10:30 AM</div>
+              <div class="meeting-block meeting-regular" onclick="showMeetingDetails('standup')">
+                👥 Daily Standup (15 min) - Team Alpha
+              </div>
+            </div>
+
+            <div class="time-slot">
+              <div class="time-label">11:00 AM</div>
+              <div class="meeting-block meeting-optional">
+                📋 Product Review Meeting - Optional Attendance
+                <div class="ai-suggestion">AI</div>
+              </div>
+            </div>
+
+            <div class="time-slot">
+              <div class="time-label">12:00 PM</div>
+              <div class="meeting-block meeting-focus">
+                🍽️ Lunch Break + Focus Time
+              </div>
+            </div>
+
+            <div class="time-slot">
+              <div class="time-label">1:30 PM</div>
+              <div class="meeting-block meeting-high-priority" onclick="showMeetingDetails('exec')">
+                ⭐ Executive Briefing (30 min) - Q4 Planning
+                <div class="ai-suggestion">PREP</div>
+              </div>
+            </div>
+
+            <div class="time-slot">
+              <div class="time-label">2:30 PM</div>
+              <div class="meeting-block meeting-focus">
+                🎯 Protected Focus Time - Feature Design
+              </div>
+            </div>
+
+            <div class="time-slot">
+              <div class="time-label">4:00 PM</div>
+              <div class="meeting-block meeting-regular">
+                🔄 Sprint Retrospective (45 min) - Dev Team
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suggestions Section -->
+        <div id="suggestions-section" class="hidden">
+          <div class="suggestions-panel">
+            <h2 style="margin-bottom: 20px;">AI-Powered Suggestions</h2>
+            <!-- Suggestion items same as before… -->
+          </div>
+        </div>
+
+        <!-- Meeting Insights Section -->
+        <div id="insights-section" class="hidden">
+          <div class="suggestions-panel">
+            <h2 style="margin-bottom: 20px;">Meeting Insights & Analytics</h2>
+            <!-- Insight cards same as before… -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notification" id="notification"></div>
+
+  <!-- Link your external script -->
+  <script src="script.js"></script>
+</body>
+</html>
+
