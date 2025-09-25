@@ -4,16 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teams Productivity Intelligence Suite</title>
-  <!-- Link your external stylesheet -->
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
   <div class="teams-container">
     <div class="teams-header">
       <div class="teams-logo">T</div>
       <span>Microsoft Teams</span>
-      <span style="margin-left: auto; font-size: 12px;">Sarah Chen • Product Manager</span>
+      <span class="user-name">Sarah Chen • Product Manager</span>
     </div>
 
     <div class="app-header">
@@ -70,7 +68,7 @@
           <div class="calendar-view">
             <div class="calendar-header">
               <div class="calendar-title">Today's Optimized Schedule</div>
-              <button class="btn btn-primary" onclick="showNotification('Schedule optimized! 45 minutes of focus time protected.')">Optimize Day</button>
+              <button class="btn-primary" onclick="showNotification('Schedule optimized! 45 minutes of focus time protected.')">Optimize Day</button>
             </div>
 
             <div class="time-slot">
@@ -130,16 +128,14 @@
         <!-- Suggestions Section -->
         <div id="suggestions-section" class="hidden">
           <div class="suggestions-panel">
-            <h2 style="margin-bottom: 20px;">AI-Powered Suggestions</h2>
-            <!-- Suggestion items same as before… -->
+            <h2>AI-Powered Suggestions</h2>
           </div>
         </div>
 
         <!-- Meeting Insights Section -->
         <div id="insights-section" class="hidden">
           <div class="suggestions-panel">
-            <h2 style="margin-bottom: 20px;">Meeting Insights & Analytics</h2>
-            <!-- Insight cards same as before… -->
+            <h2>Meeting Insights & Analytics</h2>
           </div>
         </div>
       </div>
@@ -148,8 +144,6 @@
 
   <div class="notification" id="notification"></div>
 
-  <!-- Link your external script -->
-  <script src="script.js"></script>
+  <script src="JS/script.js"></script>
 </body>
 </html>
-
